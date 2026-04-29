@@ -1,0 +1,721 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ARO · 면접관석의 기준으로 합격을 설계합니다</title>
+<meta name="description" content="16년 면접관석의 기준으로 이력서·면접·커리어를 다시 설계합니다. AI 1차 진단 무료 제공.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;600;700;800;900&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#ffffff;
+    --bg-soft:#f6f6f4;
+    --ink:#0a0a0a;
+    --ink-80:#1f1f1f;
+    --ink-60:#4a4a4a;
+    --muted:#737373;
+    --line:#e4e4e0;
+    --accent:#1a47d1;
+    --accent-soft:#edf1ff;
+    --warn:#b8321a;
+  }
+  *{margin:0;padding:0;box-sizing:border-box}
+  html{scroll-behavior:smooth;scroll-padding-top:100px}
+  body{font-family:'Noto Sans KR','Apple SD Gothic Neo','Malgun Gothic',sans-serif;background:var(--bg);color:var(--ink);-webkit-font-smoothing:antialiased;line-height:1.7;font-size:16px;font-weight:400}
+  a{color:inherit;text-decoration:none}
+  .wrap{width:92%;max-width:1160px;margin:0 auto}
+
+  /* ACCESSIBILITY UTILITIES */
+  .sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
+  .skip-link{position:absolute;top:-48px;left:16px;z-index:200;padding:12px 20px;background:var(--ink);color:#fff;font-size:.9rem;font-weight:600;border-radius:4px;text-decoration:none;transition:top .15s}
+  .skip-link:focus{top:12px;outline:3px solid #ffd27a;outline-offset:2px}
+
+  :focus{outline:none}
+  :focus-visible{outline:3px solid var(--accent);outline-offset:3px;border-radius:3px}
+  #main-content:focus,#main-content:focus-visible{outline:none}
+  .btn:focus-visible,.nav-cta:focus-visible,.nav-toggle:focus-visible{outline:3px solid var(--accent);outline-offset:3px}
+  .announce a:focus-visible,footer a:focus-visible,.verdict-card a:focus-visible,.metrics a:focus-visible,.offer a:focus-visible{outline-color:#ffd27a}
+  summary:focus-visible{outline:3px solid var(--accent);outline-offset:-3px}
+
+  @media (prefers-reduced-motion: reduce){
+    *,*::before,*::after{animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important;scroll-behavior:auto!important}
+  }
+
+  /* ANNOUNCEMENT BAR */
+  .announce{background:var(--ink);color:#fff;padding:11px 0;font-size:.78rem;letter-spacing:.04em;text-align:center}
+  .announce b{color:#ffd27a;font-weight:600}
+  .announce span{font-family:'IBM Plex Mono',monospace;font-size:.72rem;letter-spacing:.2em;text-transform:uppercase;color:rgba(255,255,255,.72);margin-right:12px}
+
+  /* NAV */
+  .nav{border-bottom:1px solid var(--line);background:var(--bg);position:sticky;top:0;z-index:50}
+  .nav .row{display:flex;align-items:center;justify-content:space-between;padding:18px 0;gap:24px;position:relative}
+  .logo{display:flex;align-items:baseline;gap:10px;font-weight:800;font-size:1.35rem;letter-spacing:-.02em;color:var(--ink)}
+  .logo span{font-family:'IBM Plex Mono',monospace;font-size:.62rem;letter-spacing:.28em;color:var(--ink-60);font-weight:500;text-transform:uppercase}
+  .nav-links{display:flex;gap:28px;font-size:.88rem;font-weight:500;color:var(--ink-60);list-style:none}
+  .nav-links a{display:inline-block;padding:4px 0}
+  .nav-links a:hover{color:var(--accent)}
+  .nav-cta{padding:10px 20px;background:var(--accent);color:#fff;font-size:.82rem;font-weight:600;border-radius:4px;white-space:nowrap}
+  .nav-cta:hover{background:var(--ink)}
+  .nav-toggle{display:none;background:var(--bg);border:1px solid var(--line);border-radius:4px;width:44px;height:44px;align-items:center;justify-content:center;cursor:pointer;color:var(--ink-80);padding:0}
+  .nav-toggle:hover{border-color:var(--ink)}
+  .nav-toggle svg{width:20px;height:20px}
+  @media(max-width:820px){
+    .nav-toggle{display:inline-flex}
+    .nav-links{
+      display:none;
+      position:absolute;
+      top:100%;
+      left:0;
+      right:0;
+      flex-direction:column;
+      background:var(--bg);
+      border-top:1px solid var(--line);
+      border-bottom:1px solid var(--line);
+      padding:4px 0;
+      gap:0;
+      box-shadow:0 18px 30px -20px rgba(0,0,0,.15);
+      z-index:51;
+    }
+    .nav-links.is-open{display:flex}
+    .nav-links li{padding:0}
+    .nav-links a{display:block;padding:14px 24px;font-size:1rem;border-bottom:1px dashed var(--line)}
+    .nav-links li:last-child a{border-bottom:none}
+    .nav-cta{padding:12px 18px;font-size:.85rem}
+  }
+
+  /* HERO */
+  .hero{padding:80px 0 60px;background:var(--bg-soft);border-bottom:1px solid var(--line);position:relative;overflow:hidden}
+  .hero-grid{display:grid;grid-template-columns:1.15fr 1fr;gap:72px;align-items:center}
+  @media(max-width:960px){.hero-grid{grid-template-columns:1fr;gap:48px}}
+
+  .hero-badge{display:inline-flex;align-items:center;gap:10px;padding:8px 14px;background:var(--bg);border:1px solid var(--line);border-radius:100px;font-size:.78rem;font-weight:500;color:var(--ink-60);margin-bottom:28px}
+  .hero-badge .dot{width:6px;height:6px;border-radius:50%;background:#10b47a;box-shadow:0 0 0 4px rgba(16,180,122,.15)}
+  .hero-badge b{color:var(--ink);font-weight:600}
+
+  .hero h1{font-size:clamp(2.4rem,4.8vw,4rem);font-weight:800;line-height:1.15;letter-spacing:-.03em;color:var(--ink);margin-bottom:28px;word-break:keep-all}
+  .hero h1 .hl{text-decoration:none;position:relative;white-space:nowrap}
+  .hero h1 .hl::after{content:'';position:absolute;left:-2px;right:-2px;bottom:4px;height:14px;background:rgba(26,71,209,.18);z-index:-1;border-radius:2px}
+  .hero h1 em{font-style:normal;color:var(--accent)}
+  .hero p.lead{font-size:1.08rem;line-height:1.75;color:var(--ink-60);margin-bottom:36px;max-width:560px;word-break:keep-all}
+  .hero p.lead b{color:var(--ink);font-weight:600}
+
+  .hero-cta{display:flex;gap:14px;flex-wrap:wrap;margin-bottom:32px}
+  .btn{display:inline-flex;align-items:center;gap:10px;padding:15px 26px;font-size:.94rem;font-weight:600;border-radius:4px;transition:all .15s ease;cursor:pointer;border:none;text-decoration:none;line-height:1.3;white-space:nowrap}
+  .btn-primary{background:var(--ink);color:#fff}
+  .btn-primary:hover{background:var(--accent)}
+  .btn-arrow{transition:transform .15s}
+  .btn:hover .btn-arrow{transform:translateX(3px)}
+  .btn-secondary{background:transparent;color:var(--ink);border:1.5px solid var(--ink)}
+  .btn-secondary:hover{background:var(--ink);color:#fff}
+
+  .hero-notes{list-style:none;display:flex;flex-wrap:wrap;gap:12px 24px;font-size:.84rem;color:var(--ink-60)}
+  .hero-notes li{display:flex;align-items:center;gap:6px}
+  .hero-notes b{color:var(--ink);font-weight:600}
+  .hero-notes svg{flex-shrink:0;color:#10b47a}
+
+  .hero-visual{position:relative}
+  .case-card{background:var(--bg);border:1px solid var(--line);border-radius:8px;padding:32px;box-shadow:0 20px 40px -20px rgba(10,10,10,.08)}
+  .case-card .case-head{display:flex;justify-content:space-between;align-items:start;margin-bottom:24px;padding-bottom:18px;border-bottom:1px dashed var(--line)}
+  .case-card .case-ttl{font-family:'IBM Plex Mono',monospace;font-size:.68rem;letter-spacing:.2em;color:var(--muted);text-transform:uppercase}
+  .case-card .case-tag{font-size:.72rem;font-weight:500;color:var(--ink-60);background:var(--bg-soft);padding:4px 10px;border-radius:100px}
+  .case-card h4{font-size:1.02rem;font-weight:600;color:var(--ink);margin-bottom:20px;line-height:1.45}
+  .case-card .bars{display:flex;gap:28px;align-items:end;margin-bottom:22px}
+  .bar{flex:1}
+  .bar .bar-lbl{font-family:'IBM Plex Mono',monospace;font-size:.68rem;letter-spacing:.15em;color:var(--muted);margin-bottom:10px;text-transform:uppercase}
+  .bar .bar-v{display:flex;align-items:end;gap:10px;margin-bottom:8px}
+  .bar .bar-v strong{font-size:2rem;font-weight:800;letter-spacing:-.02em;line-height:1;color:var(--ink)}
+  .bar .bar-v.after strong{color:var(--accent)}
+  .bar .bar-v span{font-size:.82rem;color:var(--muted);margin-bottom:4px}
+  .bar .bar-fill{height:4px;background:var(--line);border-radius:2px;overflow:hidden}
+  .bar .bar-fill i{display:block;height:100%;background:var(--ink-60);border-radius:2px}
+  .bar.after .bar-fill i{background:var(--accent)}
+  .bar .bar-txt{font-size:.74rem;color:var(--muted);margin-top:10px}
+  .case-meta{font-size:.8rem;color:var(--ink-60)}
+  .case-meta b{color:var(--ink);font-weight:600;display:block;margin-top:4px}
+  .case-chip{position:absolute;top:-12px;right:-12px;background:var(--ink);color:#fff;padding:6px 12px;border-radius:100px;font-size:.7rem;font-weight:500;font-family:'IBM Plex Mono',monospace;letter-spacing:.12em}
+  .case-disclaim{font-size:.72rem;color:var(--muted);margin-top:16px;text-align:center;line-height:1.55}
+
+  /* AUDIENCE */
+  .audience{background:var(--bg);border-bottom:1px solid var(--line);padding:36px 0}
+  .audience-row{display:flex;flex-wrap:wrap;gap:12px 28px;align-items:center;font-size:.84rem}
+  .audience-row .lbl{font-family:'IBM Plex Mono',monospace;font-size:.72rem;letter-spacing:.18em;color:var(--muted);text-transform:uppercase;font-weight:500}
+  .audience-row ul{list-style:none;display:flex;flex-wrap:wrap;gap:10px}
+  .audience-row li{padding:7px 14px;background:var(--bg-soft);border:1px solid var(--line);border-radius:100px;font-size:.82rem;color:var(--ink-80);font-weight:500}
+
+  /* AI DIAGNOSIS (NEW SECTION) */
+  .ai-diag{padding:80px 0;background:linear-gradient(180deg,var(--bg) 0%,var(--accent-soft) 100%);border-bottom:1px solid var(--line);position:relative;overflow:hidden}
+  .ai-diag::before{content:'';position:absolute;inset:0;background:radial-gradient(circle at 90% 20%,rgba(26,71,209,.08) 0%,transparent 50%);pointer-events:none}
+  .ai-grid{display:grid;grid-template-columns:1fr 1fr;gap:72px;align-items:center;position:relative}
+  @media(max-width:960px){.ai-grid{grid-template-columns:1fr;gap:48px}}
+
+  .ai-badge{display:inline-flex;align-items:center;gap:10px;padding:8px 14px;background:var(--ink);color:#fff;border-radius:100px;font-size:.74rem;font-weight:600;letter-spacing:.08em;margin-bottom:24px}
+  .ai-badge::before{content:'';width:6px;height:6px;border-radius:50%;background:#ffd27a;animation:pulse 2s ease-in-out infinite}
+  @keyframes pulse{0%,100%{opacity:.5}50%{opacity:1}}
+
+  .ai-diag h2{font-size:clamp(1.9rem,3.6vw,2.8rem);font-weight:800;line-height:1.2;letter-spacing:-.02em;color:var(--ink);margin-bottom:24px;word-break:keep-all}
+  .ai-diag h2 em{font-style:normal;color:var(--accent)}
+  .ai-diag p.ai-lead{font-size:1.02rem;line-height:1.75;color:var(--ink-60);margin-bottom:28px;word-break:keep-all}
+  .ai-diag p.ai-lead b{color:var(--ink);font-weight:600}
+
+  .ai-features{list-style:none;margin-bottom:36px}
+  .ai-features li{padding:14px 0;border-bottom:1px solid rgba(10,10,10,.08);display:flex;gap:16px;align-items:start;font-size:.95rem;color:var(--ink-80)}
+  .ai-features li:last-child{border-bottom:none}
+  .ai-features li .ico{flex-shrink:0;width:28px;height:28px;border-radius:50%;background:var(--ink);color:#fff;display:inline-flex;align-items:center;justify-content:center;font-family:'IBM Plex Mono',monospace;font-size:.72rem;font-weight:600}
+  .ai-features li b{color:var(--ink);font-weight:600}
+
+  /* AI Preview card */
+  .ai-preview{background:var(--bg);border:1px solid var(--line);border-radius:10px;padding:28px;box-shadow:0 24px 48px -24px rgba(26,71,209,.2);position:relative}
+  .ai-preview .preview-head{display:flex;justify-content:space-between;align-items:center;margin-bottom:20px;padding-bottom:16px;border-bottom:1px dashed var(--line)}
+  .ai-preview .preview-ttl{font-family:'IBM Plex Mono',monospace;font-size:.68rem;letter-spacing:.2em;color:var(--muted);text-transform:uppercase}
+  .ai-preview .preview-chip{font-size:.7rem;background:var(--accent-soft);color:var(--accent);padding:4px 10px;border-radius:100px;font-weight:600}
+  .ai-preview h4{font-size:1rem;font-weight:600;margin-bottom:18px;color:var(--ink);line-height:1.5}
+  .ai-preview .score-row{display:flex;justify-content:space-between;align-items:center;margin-bottom:8px;font-size:.82rem}
+  .ai-preview .score-row .lbl{color:var(--ink-80);font-weight:500}
+  .ai-preview .score-row .val{font-family:'IBM Plex Mono',monospace;font-weight:600;color:var(--ink)}
+  .ai-preview .score-bar{height:3px;background:var(--line);border-radius:2px;margin-bottom:14px;overflow:hidden}
+  .ai-preview .score-bar i{display:block;height:100%;background:var(--ink-80);border-radius:2px}
+  .ai-preview .score-bar.high i{background:var(--warn)}
+  .ai-preview .score-bar.medium i{background:var(--ink-60)}
+  .ai-preview .score-bar.low i{background:var(--muted)}
+
+  /* PROBLEM - 5 PATTERNS */
+  .problem{padding:96px 0;border-bottom:1px solid var(--line)}
+  .sec-head{max-width:800px;margin-bottom:56px}
+  .sec-tag{font-family:'IBM Plex Mono',monospace;font-size:.74rem;letter-spacing:.2em;color:var(--muted);text-transform:uppercase;margin-bottom:16px;font-weight:500}
+  .sec-title{font-size:clamp(1.9rem,3.6vw,2.8rem);font-weight:800;line-height:1.2;letter-spacing:-.02em;color:var(--ink);margin-bottom:18px;word-break:keep-all}
+  .sec-title em{font-style:normal;color:var(--accent)}
+  .sec-sub{font-size:1.02rem;line-height:1.75;color:var(--ink-60);word-break:keep-all}
+  .sec-sub b{color:var(--ink);font-weight:600}
+
+  .p-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:20px;list-style:none;margin-bottom:48px}
+  .p-card{background:var(--bg-soft);padding:30px;border-radius:8px;border:1px solid var(--line);transition:all .2s}
+  .p-card:hover{border-color:var(--ink-80);transform:translateY(-4px);box-shadow:0 20px 40px -20px rgba(0,0,0,.12)}
+  .p-num{font-family:'IBM Plex Mono',monospace;font-size:.72rem;letter-spacing:.18em;color:var(--muted);margin-bottom:16px;text-transform:uppercase;font-weight:500}
+  .p-card h3{font-size:1.22rem;font-weight:700;line-height:1.35;letter-spacing:-.01em;color:var(--ink);margin-bottom:14px;word-break:keep-all}
+  .p-card > p{font-size:.94rem;line-height:1.72;color:var(--ink-60);margin-bottom:20px;word-break:keep-all}
+  .p-card > p b{color:var(--ink);font-weight:600}
+  .quote{padding:12px 16px;background:var(--bg);border-left:3px solid var(--ink-80);border-radius:0 4px 4px 0;font-size:.86rem;color:var(--ink-60);font-style:italic}
+  .quote p{margin:0}
+
+  .verdict-card{background:var(--ink);color:#fff;padding:32px 36px;border-radius:8px;display:flex;align-items:center;justify-content:space-between;gap:24px;flex-wrap:wrap}
+  .verdict-card .tag{font-family:'IBM Plex Mono',monospace;font-size:.72rem;letter-spacing:.2em;color:#ffd27a;text-transform:uppercase;font-weight:500}
+  .verdict-card p{font-size:1.12rem;font-weight:500;line-height:1.55;flex:1;min-width:280px;word-break:keep-all}
+  .verdict-card p b{color:#ffd27a;font-weight:600}
+  .verdict-card .arrow{font-size:1.5rem;color:#ffd27a}
+
+  /* METHOD */
+  .method{padding:96px 0;background:var(--bg-soft);border-bottom:1px solid var(--line)}
+  .steps{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:0;list-style:none;border:1px solid var(--line);background:var(--bg);border-radius:8px;overflow:hidden}
+  .step{padding:34px 28px;border-right:1px solid var(--line);position:relative;background:var(--bg);transition:background .2s}
+  .step:last-child{border-right:none}
+  .step:hover{background:var(--bg-soft)}
+  @media(max-width:820px){
+    .steps{grid-template-columns:1fr}
+    .step{border-right:none;border-bottom:1px solid var(--line)}
+    .step:last-child{border-bottom:none}
+  }
+  .step-n{display:flex;align-items:baseline;gap:12px;margin-bottom:22px;padding-bottom:16px;border-bottom:1px dashed var(--line)}
+  .step-n .num{font-family:'IBM Plex Mono',monospace;font-size:2.2rem;font-weight:500;color:var(--ink);letter-spacing:-.02em;line-height:1}
+  .step-n .lbl{font-family:'IBM Plex Mono',monospace;font-size:.72rem;letter-spacing:.2em;color:var(--muted);text-transform:uppercase;font-weight:500}
+  .step h3{font-size:1.12rem;font-weight:700;line-height:1.35;letter-spacing:-.01em;color:var(--ink);margin-bottom:12px;word-break:keep-all}
+  .step > p{font-size:.88rem;line-height:1.7;color:var(--ink-60);margin-bottom:16px;word-break:keep-all}
+  .step > p b{color:var(--ink);font-weight:600}
+  .step ul{list-style:none;font-size:.82rem;color:var(--ink-60);line-height:1.85}
+  .step ul li{position:relative;padding-left:14px}
+  .step ul li::before{content:'—';position:absolute;left:0;color:var(--muted)}
+
+  /* METRICS */
+  .metrics{padding:64px 0;background:var(--ink);color:#fff}
+  .m-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:32px;list-style:none}
+  .m-item{border-left:1px solid rgba(255,255,255,.15);padding-left:20px}
+  .m-item:first-child{border-left:none;padding-left:0}
+  @media(max-width:820px){.m-item,.m-item:first-child{border-left:none;padding-left:0;padding-bottom:20px;border-bottom:1px solid rgba(255,255,255,.15)}.m-item:last-child{border-bottom:none;padding-bottom:0}}
+  .m-item .k{font-family:'IBM Plex Mono',monospace;font-size:.7rem;letter-spacing:.18em;color:rgba(255,255,255,.55);text-transform:uppercase;margin-bottom:14px;font-weight:500}
+  .m-item .v{font-size:3rem;font-weight:800;letter-spacing:-.03em;line-height:1;color:#fff;margin-bottom:12px}
+  .m-item .v sup{font-size:.4em;font-weight:500;color:#ffd27a;margin-left:4px;vertical-align:super}
+  .m-item .d{font-size:.82rem;color:rgba(255,255,255,.65);line-height:1.6}
+
+  /* DIRECTOR */
+  .director{padding:96px 0;border-bottom:1px solid var(--line)}
+  .d-grid{display:grid;grid-template-columns:.8fr 1.2fr;gap:64px;align-items:start}
+  @media(max-width:960px){.d-grid{grid-template-columns:1fr;gap:40px}}
+  .d-card{background:var(--bg-soft);padding:40px 36px;border:1px solid var(--line);border-radius:8px;position:sticky;top:110px}
+  .d-card .tag{font-family:'IBM Plex Mono',monospace;font-size:.72rem;letter-spacing:.2em;color:var(--muted);text-transform:uppercase;margin-bottom:22px;font-weight:500;display:block}
+  .d-card h3{font-size:2.3rem;font-weight:800;letter-spacing:-.02em;line-height:1;color:var(--ink);margin-bottom:8px}
+  .d-card .role{font-family:'IBM Plex Mono',monospace;font-size:.78rem;letter-spacing:.1em;color:var(--muted);text-transform:uppercase;margin-bottom:26px;font-weight:500}
+  .d-card dl{border-top:1px solid var(--line)}
+  .d-card .d-row{display:grid;grid-template-columns:90px 1fr;gap:16px;padding:14px 0;border-bottom:1px dashed var(--line);align-items:baseline}
+  .d-card dt,.d-card dd{margin:0}
+  .d-card .k{font-family:'IBM Plex Mono',monospace;font-size:.72rem;letter-spacing:.12em;color:var(--muted);text-transform:uppercase;font-weight:500}
+  .d-card .v{font-size:.92rem;color:var(--ink);font-weight:500}
+
+  .d-body h2{font-size:clamp(1.7rem,3.2vw,2.5rem);font-weight:800;line-height:1.2;letter-spacing:-.02em;color:var(--ink);margin-bottom:28px;word-break:keep-all}
+  .d-body h2 em{font-style:normal;color:var(--accent)}
+  .d-body p{font-size:1rem;line-height:1.85;color:var(--ink-60);margin-bottom:20px;word-break:keep-all}
+  .d-body p b{color:var(--ink);font-weight:600}
+  .d-body blockquote{margin:32px 0;padding:24px 28px;background:var(--bg-soft);border-left:3px solid var(--accent);border-radius:0 6px 6px 0;font-size:1rem;line-height:1.75;color:var(--ink-80);font-weight:500}
+  .d-body blockquote p{margin:0;color:inherit}
+
+  /* CASES */
+  .cases{padding:96px 0;background:var(--bg-soft);border-bottom:1px solid var(--line)}
+  .case-list{display:grid;grid-template-columns:repeat(auto-fit,minmax(320px,1fr));gap:20px;list-style:none;margin-top:48px}
+  .case-item{background:var(--bg);padding:32px;border:1px solid var(--line);border-radius:8px;transition:all .2s}
+  .case-item:hover{border-color:var(--ink-80);transform:translateY(-4px);box-shadow:0 20px 40px -20px rgba(0,0,0,.1)}
+  .case-item .case-head-sm{display:flex;justify-content:space-between;align-items:center;margin-bottom:18px;padding-bottom:14px;border-bottom:1px dashed var(--line);font-family:'IBM Plex Mono',monospace;font-size:.72rem;letter-spacing:.15em;color:var(--muted);text-transform:uppercase}
+  .case-item .case-head-sm .right{color:var(--ink-60)}
+  .case-item h3{font-size:1.1rem;font-weight:700;line-height:1.45;letter-spacing:-.01em;color:var(--ink);margin-bottom:18px;word-break:keep-all}
+  .case-item h3 b{color:var(--accent)}
+  .case-item blockquote.q{margin-bottom:20px;padding:12px 16px;background:var(--bg-soft);border-left:3px solid var(--line);border-radius:0 4px 4px 0;font-size:.88rem;color:var(--ink-60);line-height:1.7;font-style:italic}
+  .case-item blockquote.q p{margin:0}
+  .case-item .case-seg{font-size:.78rem;color:var(--muted)}
+  .case-item .case-seg b{color:var(--ink-80);font-weight:500}
+
+  /* FAQ */
+  .faq{padding:96px 0;border-bottom:1px solid var(--line)}
+  .faq-list{max-width:880px;margin-top:40px}
+  .faq-list details{border-bottom:1px solid var(--line);padding:4px 0}
+  .faq-list summary{list-style:none;cursor:pointer;padding:24px 0;display:flex;align-items:center;gap:16px;font-size:1rem;font-weight:500;color:var(--ink);transition:color .2s}
+  .faq-list summary::-webkit-details-marker{display:none}
+  .faq-list summary:hover{color:var(--accent)}
+  .faq-list .faq-n{font-family:'IBM Plex Mono',monospace;font-size:.72rem;letter-spacing:.15em;color:var(--muted);text-transform:uppercase;font-weight:500;flex-shrink:0;min-width:44px}
+  .faq-list .faq-toggle{margin-left:auto;font-size:1.4rem;color:var(--ink-60);font-weight:300;transition:transform .2s}
+  .faq-list details[open] .faq-toggle{transform:rotate(45deg)}
+  .faq-list .faq-a{padding:0 0 24px 60px;font-size:.94rem;line-height:1.75;color:var(--ink-60);word-break:keep-all}
+  .faq-list .faq-a b{color:var(--ink);font-weight:600}
+
+  /* FINAL CTA */
+  .final{padding:96px 0;background:var(--ink);color:#fff;position:relative;overflow:hidden}
+  .final::before{content:'';position:absolute;top:0;left:0;right:0;height:1px;background:linear-gradient(90deg,transparent 0%,#ffd27a 50%,transparent 100%);opacity:.3}
+  .final-wrap{max-width:820px}
+  .final .sec-tag{color:#ffd27a}
+  .final h2{font-size:clamp(1.9rem,3.6vw,2.8rem);font-weight:800;line-height:1.2;letter-spacing:-.02em;color:#fff;margin-bottom:24px;word-break:keep-all}
+  .final h2 em{font-style:normal;color:#ffd27a}
+  .final p{font-size:1.02rem;line-height:1.75;color:rgba(255,255,255,.72);margin-bottom:36px;max-width:620px;word-break:keep-all}
+  .final p b{color:#fff;font-weight:600}
+  .final .btn-primary{background:#ffd27a;color:var(--ink)}
+  .final .btn-primary:hover{background:#fff}
+  .final .btn-secondary{color:#fff;border-color:rgba(255,255,255,.5)}
+  .final .btn-secondary:hover{background:#fff;color:var(--ink);border-color:#fff}
+  .final-notes{display:flex;flex-wrap:wrap;gap:20px 32px;margin-top:36px;font-size:.82rem;color:rgba(255,255,255,.55)}
+  .final-notes li{list-style:none;display:flex;align-items:center;gap:6px}
+  .final-notes b{color:#ffd27a;font-weight:500}
+
+  /* FOOTER */
+  footer{padding:40px 0;background:var(--ink);color:rgba(255,255,255,.55);text-align:center;font-size:.82rem;border-top:1px solid rgba(255,255,255,.08)}
+  footer b{color:#fff;font-weight:600}
+  footer a{color:rgba(255,255,255,.75);border-bottom:1px dashed rgba(255,255,255,.25);padding-bottom:1px}
+  footer a:hover{color:#ffd27a;border-color:#ffd27a}
+</style>
+</head>
+<body>
+
+<a class="skip-link" href="#main-content">본문으로 바로가기</a>
+
+<div class="announce" role="status">
+  <div class="wrap">
+    <span aria-hidden="true">Notice</span>이번 회차 <b>AI 사전 진단 무료 오픈</b> · 본 상담 신청 3자리 남음
+  </div>
+</div>
+
+<nav class="nav" aria-label="메인 메뉴">
+  <div class="wrap row">
+    <a href="#main-content" class="logo">ARO<span lang="en">Career Direction</span></a>
+    <button class="nav-toggle" aria-label="메뉴 열기" aria-expanded="false" aria-controls="nav-links" onclick="document.getElementById('nav-links').classList.toggle('is-open');this.setAttribute('aria-expanded',this.getAttribute('aria-expanded')==='true'?'false':'true')">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+    </button>
+    <ul class="nav-links" id="nav-links" role="menu">
+      <li role="none"><a href="#ai-diag" role="menuitem">AI 진단</a></li>
+      <li role="none"><a href="#problem" role="menuitem">왜 떨어지나</a></li>
+      <li role="none"><a href="#method" role="menuitem">방법</a></li>
+      <li role="none"><a href="#director" role="menuitem">디렉터</a></li>
+      <li role="none"><a href="#cases" role="menuitem">사례</a></li>
+      <li role="none"><a href="#faq" role="menuitem">FAQ</a></li>
+    </ul>
+    <a href="aro-diagnosis.html" class="nav-cta">무료 AI 진단</a>
+  </div>
+</nav>
+
+<main id="main-content" tabindex="-1">
+
+<!-- HERO -->
+<section class="hero" aria-label="대표 메시지">
+  <div class="wrap hero-grid">
+    <div>
+      <div class="hero-badge">
+        <span class="dot" aria-hidden="true"></span>
+        <span><b>16년</b> 면접관석에서 쌓은 합격 기준</span>
+      </div>
+      <h1>같은 경험인데, 왜 저 사람만 <em>붙을까.</em></h1>
+      <p class="lead">문제는 실력이 아닙니다. <b>평가자가 읽는 언어</b>로 본인의 경험이 번역되지 않았을 뿐입니다. ARO는 16년간 면접관석에서 합격과 불합격을 결정해 온 기준으로, 이력서와 면접, 커리어를 다시 설계합니다.</p>
+
+      <div class="hero-cta">
+        <a href="aro-diagnosis.html" class="btn btn-primary" aria-label="무료 AI 사전 진단 시작">지금 바로 AI 진단 시작<span class="btn-arrow" aria-hidden="true">→</span></a>
+        <a href="#method" class="btn btn-secondary">방법 먼저 보기</a>
+      </div>
+
+      <ul class="hero-notes">
+        <li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true" focusable="false"><path d="M20 6L9 17l-5-5"/></svg>AI 진단 <b>완전 무료</b></li>
+        <li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true" focusable="false"><path d="M20 6L9 17l-5-5"/></svg>본 상담 전환 <b>강요 없음</b></li>
+      </ul>
+    </div>
+
+    <div class="hero-visual">
+      <div class="case-card">
+        <div class="case-head">
+          <div>
+            <p class="case-ttl">실제 케이스 — Before / After</p>
+            <p style="font-size:.8rem;color:var(--ink-60);margin-top:4px">Case L · 28</p>
+          </div>
+          <span class="case-tag">6주 후</span>
+        </div>
+
+        <h4>서류 합격률이 이렇게 바뀌었습니다.</h4>
+
+        <div class="bars" role="img" aria-label="진단 전 서류 합격률은 10건 중 0건, 0퍼센트. 6주 진단 후 10건 중 6건, 60퍼센트로 개선되었습니다.">
+          <div class="bar">
+            <p class="bar-lbl">Before</p>
+            <div class="bar-v"><strong>0%</strong></div>
+            <div class="bar-fill"><i style="width:0%"></i></div>
+            <p class="bar-txt">서류 0/10</p>
+          </div>
+          <div class="bar after">
+            <p class="bar-lbl">After · 6w</p>
+            <div class="bar-v after"><strong>60%</strong></div>
+            <div class="bar-fill"><i style="width:60%"></i></div>
+            <p class="bar-txt">서류 6/10</p>
+          </div>
+        </div>
+
+        <p class="case-meta">
+          학벌 불리 · 제조업 희망
+          <b>최종 합격 · 국내 5대 제조사</b>
+        </p>
+        <p class="case-disclaim">표본은 케이스별로 상이 · 같은 결과를 보장하지 않음</p>
+
+        <div class="case-chip" aria-hidden="true">#001</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- AUDIENCE -->
+<section class="audience" aria-label="대상">
+  <div class="wrap audience-row">
+    <p class="lbl">Who this is for</p>
+    <ul>
+      <li>신입 취업</li>
+      <li>경력 전환</li>
+      <li>경력 단절 재취업</li>
+      <li>업종 변경</li>
+      <li>팀장·임원급 설계</li>
+    </ul>
+  </div>
+</section>
+
+<!-- AI DIAGNOSIS (NEW) -->
+<section id="ai-diag" class="ai-diag" aria-label="AI 진단 엔진">
+  <div class="wrap ai-grid">
+    <div>
+      <div class="ai-badge">NEW · AI 진단 엔진</div>
+      <h2>16년 면접관석의 기준을 <em>AI로 담아냈습니다.</em></h2>
+      <p class="ai-lead">1,000회 이상의 면접과 150건 이상의 컨설팅 사례에서 추출된 <b>5가지 탈락 원인 진단 체계</b>를 AI에 적용했습니다. 이력서 한 장만 입력하면, 평가자 관점의 진단이 즉시 나옵니다.</p>
+
+      <ul class="ai-features">
+        <li>
+          <span class="ico">1</span>
+          <span><b>뿌리 원인부터 표면 증상까지</b>, 5개 패턴의 점수와 근거를 제시합니다</span>
+        </li>
+        <li>
+          <span class="ico">2</span>
+          <span><b>본인 이력서의 원문을 인용</b>해 구체적으로 어느 문장이 문제인지 짚어드립니다</span>
+        </li>
+        <li>
+          <span class="ico">3</span>
+          <span><b>본 상담에서 다룰 질문</b>까지 함께 제공. 다음 단계가 분명해집니다</span>
+        </li>
+      </ul>
+
+      <a href="aro-diagnosis.html" class="btn btn-primary" aria-label="지금 AI 진단 받기">지금 AI 진단 받기<span class="btn-arrow" aria-hidden="true">→</span></a>
+    </div>
+
+    <div class="ai-preview">
+      <div class="preview-head">
+        <p class="preview-ttl">진단 결과 · 예시</p>
+        <span class="preview-chip">LIVE</span>
+      </div>
+      <h4>뿌리 원인: 지원 산업과 직무에 대한 이해 공백. 이력서 전반에 특정 산업과 공정에 대한 구체 인식이 드러나지 않습니다.</h4>
+      <div>
+        <div class="score-row">
+          <span class="lbl">산업 맥락 부재</span>
+          <span class="val">95</span>
+        </div>
+        <div class="score-bar high"><i style="width:95%"></i></div>
+
+        <div class="score-row">
+          <span class="lbl">약점 매몰</span>
+          <span class="val">90</span>
+        </div>
+        <div class="score-bar high"><i style="width:90%"></i></div>
+
+        <div class="score-row">
+          <span class="lbl">고유성 부재</span>
+          <span class="val">72</span>
+        </div>
+        <div class="score-bar medium"><i style="width:72%"></i></div>
+
+        <div class="score-row">
+          <span class="lbl">직무 언어 어긋남</span>
+          <span class="val">55</span>
+        </div>
+        <div class="score-bar medium"><i style="width:55%"></i></div>
+
+        <div class="score-row">
+          <span class="lbl">근거 부재와 과장</span>
+          <span class="val">40</span>
+        </div>
+        <div class="score-bar low"><i style="width:40%"></i></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PROBLEM - 5 PATTERNS -->
+<section id="problem" class="problem" aria-label="왜 떨어지나">
+  <div class="wrap">
+    <div class="sec-head">
+      <p class="sec-tag" aria-hidden="true">01 · 왜 떨어지나</p>
+      <h2 class="sec-title">탈락한 자리에는 <em>다섯 가지 패턴</em>이 반복됩니다.</h2>
+      <p class="sec-sub">1,000회 이상의 면접에서 공통적으로 발견된 탈락 요인. 본인의 이력서가 여기에 해당한다면, 같은 지원을 반복해도 결과는 바뀌지 않습니다.</p>
+    </div>
+
+    <ol class="p-grid" role="list">
+      <li class="p-card">
+        <p class="p-num" aria-hidden="true">PATTERN 01</p>
+        <h3>산업과 직무를 모르고 쓰고 있다</h3>
+        <p>지원하는 산업의 흐름, 직무가 요구하는 역량, 회사의 현재 방향에 대한 이해 없이 이력서를 쓰면, 문장이 아무리 매끄러워도 <b>평가자에게 닿지 않습니다</b>.</p>
+        <blockquote class="quote"><p>귀사의 빠른 성장과 혁신적 문화에 매력을 느껴…</p></blockquote>
+      </li>
+      <li class="p-card">
+        <p class="p-num" aria-hidden="true">PATTERN 02</p>
+        <h3>내 것인데 내 컬러가 없다</h3>
+        <p>본인이 작성했는데도 <b>지원자의 고유 색이 보이지 않는</b> 이력서. "성실함, 책임감, 열정" 같은 누구에게나 해당되는 문장만 남아, 스크리닝에서 즉시 제거됩니다.</p>
+        <blockquote class="quote"><p>저는 열정적으로 임했습니다…</p></blockquote>
+      </li>
+      <li class="p-card">
+        <p class="p-num" aria-hidden="true">PATTERN 03</p>
+        <h3>약점에 매몰되어 강점을 못 본다</h3>
+        <p>"비록 ~은 아니지만"으로 시작하는 순간, 이력서는 약점 위에 쓰입니다. 부족함을 인정하고 열정으로 보상하려는 구조 대신, <b>약점을 충분히 희석시킬 만큼의 강점</b>을 드러내는 설계가 필요합니다.</p>
+        <blockquote class="quote"><p>부족하지만 열심히 하겠습니다…</p></blockquote>
+      </li>
+      <li class="p-card">
+        <p class="p-num" aria-hidden="true">PATTERN 04</p>
+        <h3>지원 직무의 언어가 아니다</h3>
+        <p>경력임에도 사원 수준으로 어필하거나, 좋은 경험이 있는데도 지원 직무의 기준으로 번역되지 않은 상태. <b>경험은 있는데 쓰다 만 이력서</b>가 됩니다.</p>
+        <blockquote class="quote"><p>맡은 바 업무를 성실히 수행해왔습니다…</p></blockquote>
+      </li>
+      <li class="p-card">
+        <p class="p-num" aria-hidden="true">PATTERN 05</p>
+        <h3>주장과 근거가 비례하지 않는다</h3>
+        <p>2년차가 "총괄 리드"를 주장하고, 아르바이트 수치를 부풀리는 순간 신뢰가 무너집니다. <b>있는 그대로의 기여</b>가 오히려 강한 어필이 됩니다.</p>
+        <blockquote class="quote"><p>매출 30퍼센트 상승에 기여했습니다…</p></blockquote>
+      </li>
+    </ol>
+
+    <div class="verdict-card">
+      <span class="tag" aria-hidden="true">Verdict</span>
+      <p>탈락의 원인은 스펙이 아니라, <b>평가자의 기준으로 번역되지 않은 경험</b>입니다.</p>
+      <span class="arrow" aria-hidden="true">→</span>
+    </div>
+  </div>
+</section>
+
+<!-- METHOD -->
+<section id="method" class="method" aria-label="방법">
+  <div class="wrap">
+    <div class="sec-head">
+      <p class="sec-tag" aria-hidden="true">02 · 방법</p>
+      <h2 class="sec-title">면접관석의 기준을, 그대로 <em>당신 쪽</em>으로.</h2>
+      <p class="sec-sub">4단계 설계. AI가 1차 진단하고, ARO가 2차 심층 설계를 이어갑니다. 각 단계는 평가자 관점에서 검증된 기준만으로 구성됩니다.</p>
+    </div>
+
+    <ol class="steps" role="list">
+      <li class="step">
+        <div class="step-n"><div class="num" aria-hidden="true">1</div><div class="lbl" aria-hidden="true" lang="en">Diagnose</div></div>
+        <h3>평가자 관점 진단</h3>
+        <p><b>AI 1차 진단 + ARO 2차 심층 진단</b>. 이력서의 탈락 요인을 뿌리부터 표면까지 식별합니다.</p>
+        <ul>
+          <li>AI 기반 즉시 5패턴 분석</li>
+          <li>ARO 1:1 비대면 심층 확인</li>
+          <li>1p 진단 요약 제공</li>
+        </ul>
+      </li>
+      <li class="step">
+        <div class="step-n"><div class="num" aria-hidden="true">2</div><div class="lbl" aria-hidden="true" lang="en">Excavate</div></div>
+        <h3>자산의 발굴과 재설계</h3>
+        <p>잊고 있던 경험과 강점을 <b>질문으로 끌어냅니다</b>. 살릴 것과 버릴 것을 구분하고, 차별화 포인트로 재배치합니다.</p>
+        <ul>
+          <li>직무 기반 경험 재구성</li>
+          <li>숨은 강점 발굴 질문</li>
+          <li>이력서와 자소서 문장 재설계</li>
+        </ul>
+      </li>
+      <li class="step">
+        <div class="step-n"><div class="num" aria-hidden="true">3</div><div class="lbl" aria-hidden="true" lang="en">Command</div></div>
+        <h3>면접 실전 장악</h3>
+        <p>답변의 <b>포커스를 어디에 맞춰야 하는지</b>를 훈련합니다. 언어와 비언어를 함께 설계합니다.</p>
+        <ul>
+          <li>질문의 의도 해석 훈련</li>
+          <li>직무·직급별 예상 질문</li>
+          <li>언어와 비언어 동시 설계</li>
+        </ul>
+      </li>
+      <li class="step">
+        <div class="step-n"><div class="num" aria-hidden="true">4</div><div class="lbl" aria-hidden="true" lang="en">Navigate</div></div>
+        <h3>시장 포지셔닝</h3>
+        <p>시장이 지금 요구하는 것을 기준으로 <b>앞으로 준비할 방향</b>을 정렬합니다.</p>
+        <ul>
+          <li>경력 단계별 준비 우선순위</li>
+          <li>업계 트렌드 대응 가이드</li>
+          <li>장기 포지셔닝 설계</li>
+        </ul>
+      </li>
+    </ol>
+  </div>
+</section>
+
+<!-- METRICS -->
+<section class="metrics" aria-label="주요 지표">
+  <h2 class="sr-only">주요 지표</h2>
+  <ul class="wrap m-grid" role="list">
+    <li class="m-item"><p class="k"><span aria-hidden="true">Interview Experience</span><span class="sr-only">면접 경력</span></p><p class="v"><span class="sr-only">16년</span><span aria-hidden="true">16<sup>y</sup></span></p><p class="d">면접관석에서 축적된 판단 기준</p></li>
+    <li class="m-item"><p class="k"><span aria-hidden="true">Interviews Held</span><span class="sr-only">진행한 면접 수</span></p><p class="v"><span class="sr-only">1,000회 이상</span><span aria-hidden="true">1,000<sup>+</sup></span></p><p class="d">직무와 직급, 업종 전반의 실전 표본</p></li>
+    <li class="m-item"><p class="k"><span aria-hidden="true">Consulting Cases</span><span class="sr-only">컨설팅 사례</span></p><p class="v"><span class="sr-only">150건 이상</span><span aria-hidden="true">150<sup>+</sup></span></p><p class="d">비명문과 경력 공백 중심의 설계</p></li>
+    <li class="m-item"><p class="k"><span aria-hidden="true">Satisfaction</span><span class="sr-only">만족도</span></p><p class="v"><span class="sr-only">93퍼센트</span><span aria-hidden="true">93<sup>%</sup></span></p><p class="d">본 상담 후 만족 응답률</p></li>
+  </ul>
+</section>
+
+<!-- DIRECTOR -->
+<section id="director" class="director" aria-label="디렉터">
+  <div class="wrap d-grid">
+    <div class="d-card">
+      <p class="tag" aria-hidden="true">Career Director</p>
+      <h3>이미화</h3>
+      <p class="role"><span lang="en">Lee Mi-hwa · Former HR 16y</span></p>
+      <dl>
+        <div class="d-row"><dt class="k">경력</dt><dd class="v">前 기업 인사팀 16년</dd></div>
+        <div class="d-row"><dt class="k">면접 진행</dt><dd class="v">1,000회 이상</dd></div>
+        <div class="d-row"><dt class="k">컨설팅 사례</dt><dd class="v">150건 이상</dd></div>
+        <div class="d-row"><dt class="k">전문</dt><dd class="v">평가자 관점 설계</dd></div>
+      </dl>
+    </div>
+
+    <div class="d-body">
+      <p class="sec-tag">03 · 디렉터</p>
+      <h2>취업 강사가 아닙니다. <em>채용 결정</em>을 내린 사람입니다.</h2>
+      <p>16년간 1,000회가 넘는 면접을 직접 진행했습니다. 수만 장의 이력서를 읽었고, 어떤 문장이 합격선을 넘고 어떤 문장이 탈락선에 머물렀는지 기억합니다.</p>
+      <p>합격과 불합격을 가르는 것은 스펙이 아니었습니다. 같은 경험을 가진 두 사람 중 한쪽은 <b>조직의 언어로 번역해냈고</b>, 다른 한쪽은 자기 언어에 머물렀습니다. 그 차이만이 재현 가능한 합격 요인이었습니다.</p>
+      <blockquote><p>비명문과 비수도권, 경력 단절의 출발선에서 합격을 설계해 온 이유는 단순합니다. 그 경로가 기준을 바꾸면 가장 강력한 자원이 된다는 것을 알기 때문입니다.</p></blockquote>
+      <p>ARO는 취업 강의의 일반론이 아닙니다. 단순 첨삭도 아닙니다. <b>실제 채용 결정을 내린 시선</b>으로, 케이스 단위로 다시 설계합니다.</p>
+    </div>
+  </div>
+</section>
+
+<!-- CASES -->
+<section id="cases" class="cases" aria-label="사례">
+  <div class="wrap">
+    <div class="sec-head">
+      <p class="sec-tag" aria-hidden="true">04 · 사례</p>
+      <h2 class="sec-title">숫자 뒤에는, <em>한 사람의 판단</em>이 바뀐 순간이 있습니다.</h2>
+      <p class="sec-sub">같은 이력이 다르게 읽히기 시작한 지점을 공유합니다. 표본은 케이스별로 상이하며, 같은 결과를 보장하지 않습니다.</p>
+    </div>
+
+    <ul class="case-list" role="list">
+      <li class="case-item">
+        <div class="case-head-sm"><span><span class="sr-only">사례 1 </span>Case 01<span class="sr-only"> 의뢰인</span> L · 28</span><span class="right">6주 결과</span></div>
+        <h3>서류 합격률 <b><span class="sr-only">0퍼센트에서 60퍼센트로</span><span aria-hidden="true">0% → 60%</span></b><br>국내 5대 제조사 최종 합격</h3>
+        <blockquote class="q"><p>학벌이 약점이라 생각했는데, 같은 경험이 오히려 차별화 포인트로 읽힐 수 있다는 걸 처음 알았습니다.</p></blockquote>
+        <p class="case-seg"><b>대상</b> · 신입 · 제조업 희망 · 학벌 불리</p>
+      </li>
+      <li class="case-item">
+        <div class="case-head-sm"><span><span class="sr-only">사례 2 </span>Case 02<span class="sr-only"> 의뢰인</span> J · 34</span><span class="right">재취업</span></div>
+        <h3>공백 3년 끝에 <b><span class="sr-only">공백 3년 → </span>재입사</b><br>연봉 상향 협상 완료</h3>
+        <blockquote class="q"><p>공백을 숨기려다 더 이상해졌던 자소서가, 공백을 설계된 맥락으로 읽히게 바뀌었습니다.</p></blockquote>
+        <p class="case-seg"><b>대상</b> · 경력단절 3년 · IT 서비스 재입사</p>
+      </li>
+      <li class="case-item">
+        <div class="case-head-sm"><span><span class="sr-only">사례 3 </span>Case 03<span class="sr-only"> 의뢰인</span> K · 41</span><span class="right">업종 전환</span></div>
+        <h3>제조에서 <b><span class="sr-only">제조 → </span>B2B SaaS로</b><br>팀장급 포지션 이동</h3>
+        <blockquote class="q"><p>이직이 아니라 방향 자체가 문제였다는 진단이, 지난 2년간의 탈락을 설명해 줬습니다.</p></blockquote>
+        <p class="case-seg"><b>대상</b> · 업종 전환 · 중간관리자 리포지셔닝</p>
+      </li>
+    </ul>
+  </div>
+</section>
+
+<!-- FAQ -->
+<section id="faq" class="faq" aria-label="자주 묻는 질문">
+  <div class="wrap">
+    <div class="sec-head">
+      <p class="sec-tag" aria-hidden="true">05 · FAQ</p>
+      <h2 class="sec-title">결정하기 전, <em>자주 받는 질문</em>.</h2>
+    </div>
+
+    <div class="faq-list">
+      <details>
+        <summary><span class="faq-n" aria-hidden="true">Q.01</span><span>AI 진단과 본 상담은 어떻게 다른가요?</span><span class="faq-toggle" aria-hidden="true">＋</span></summary>
+        <div class="faq-a">AI 진단은 16년 HR 자산을 기반으로 한 <b>1차 자가 진단 도구</b>입니다. 본 상담에서는 ARO가 이력서를 직접 읽고 질문을 통해 숨은 강점과 방향성을 심층 확인합니다. AI가 놓치는 맥락과 내면의 자원을 끌어내는 것은 사람만이 할 수 있습니다.</div>
+      </details>
+      <details>
+        <summary><span class="faq-n" aria-hidden="true">Q.02</span><span>일반 취업 강의와는 무엇이 다릅니까?</span><span class="faq-toggle" aria-hidden="true">＋</span></summary>
+        <div class="faq-a">강의는 일반론, 첨삭은 표현 교정에 그치는 경우가 많습니다. ARO는 16년간 실제로 채용 결정을 내린 인사 전문가가 <b>평가자 관점</b>에서 케이스 단위로 다시 설계합니다. 같은 이력이 다르게 읽히게 만드는 것이 목표입니다.</div>
+      </details>
+      <details>
+        <summary><span class="faq-n" aria-hidden="true">Q.03</span><span>가격은 어느 정도입니까?</span><span class="faq-toggle" aria-hidden="true">＋</span></summary>
+        <div class="faq-a">1:1 맞춤 설계라 케이스별로 시간과 범위가 다릅니다. AI 진단 이후 상담 단계부터 정확한 견적을 안내드리며, <b>본 상담 전환 여부는 전적으로 본인의 선택</b>입니다.</div>
+      </details>
+      <details>
+        <summary><span class="faq-n" aria-hidden="true">Q.04</span><span>어떤 단계에 있는 분들이 주로 찾습니까?</span><span class="faq-toggle" aria-hidden="true">＋</span></summary>
+        <div class="faq-a">신입 취업 준비, 경력 전환, 경력 단절 후 재취업, 업종 변경, 팀장과 임원급 커리어 설계까지. 공통점은 본인의 경험이 평가자에게 제대로 전달되지 않는다고 느끼는 분들입니다.</div>
+      </details>
+      <details>
+        <summary><span class="faq-n" aria-hidden="true">Q.05</span><span>AI 진단만 받고 본 상담은 받지 않아도 됩니까?</span><span class="faq-toggle" aria-hidden="true">＋</span></summary>
+        <div class="faq-a">물론입니다. AI 진단만으로도 현재 상태와 개선 방향의 윤곽이 남도록 설계되어 있습니다. <b>전환을 전제로 한 진단이 아닙니다.</b></div>
+      </details>
+      <details>
+        <summary><span class="faq-n" aria-hidden="true">Q.06</span><span>본 상담 일정은 얼마나 빠르게 잡을 수 있습니까?</span><span class="faq-toggle" aria-hidden="true">＋</span></summary>
+        <div class="faq-a">신청 후 24시간 이내 일정을 안내드립니다. 회차가 한정되어 있어 놓치는 경우 <b>다음 회차까지 평균 2주 대기</b>입니다.</div>
+      </details>
+    </div>
+  </div>
+</section>
+
+<!-- FINAL CTA -->
+<section id="final" class="final" aria-label="최종 제안">
+  <div class="wrap final-wrap">
+    <p class="sec-tag">06 · 다음 단계</p>
+    <h2>다음 서류부터는, <em>평가자의 언어</em>로 쓰십시오.</h2>
+    <p>AI 진단 3분이면, 지금까지 떨어진 이유가 어디에서 끊겼는지 <b>다섯 가지 패턴 점수로 분명해집니다</b>. 이후의 판단은 전적으로 본인의 몫입니다. 다만 그 판단의 근거가 <b>16년 면접관석에서 온 것</b>이라는 사실만 달라집니다.</p>
+    <div class="hero-cta">
+      <a href="aro-diagnosis.html" class="btn btn-primary" aria-label="지금 AI 진단 시작">지금 AI 진단 시작<span class="btn-arrow" aria-hidden="true">→</span></a>
+      <a href="tel:+821089847321" class="btn btn-secondary">전화로 문의하기</a>
+    </div>
+    <ul class="final-notes" role="list">
+      <li>AI 진단 <b>완전 무료</b></li>
+      <li>본 상담 전환 <b>강요 없음</b></li>
+      <li>1p 진단 요약 <b>제공</b></li>
+    </ul>
+  </div>
+</section>
+
+</main>
+
+<footer>
+  <div class="wrap">
+    <p><b>ARO · <span lang="en">Career Direction</span></b> — 커리어 디렉터 이미화 · 前 기업 인사팀 16년 · <a href="tel:+821089847321">010.8984.7321</a> · <a href="mailto:contact@aro.example">이메일 문의</a></p>
+  </div>
+</footer>
+
+</body>
+</html>

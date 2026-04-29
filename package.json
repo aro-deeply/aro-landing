@@ -1,0 +1,14 @@
+{
+  "name": "aro-landing",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "description": "ARO landing + AI diagnosis backend",
+  "engines": {
+    "node": ">=20"
+  },
+  "dependencies": {
+    "@anthropic-ai/sdk": "^0.40.0",
+    "resend": "^4.0.0"
+  }
+}

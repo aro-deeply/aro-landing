@@ -1,6 +1,6 @@
 import Anthropic from "@anthropic-ai/sdk";
 
-const ANTHROPIC_MODEL = "claude-sonnet-4-20250514";
+const ANTHROPIC_MODEL = "claude-sonnet-4-6";
 
 const SYSTEM_PROMPT = `당신은 ARO 스튜디오의 커리어 디렉터 관점으로 이력서를 진단합니다. 16년 HR 경력, 1,000회 이상의 면접 진행, 150건 이상의 컨설팅 사례를 가진 평가자의 시선으로 판단합니다.
 
